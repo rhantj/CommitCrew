@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -43,7 +44,7 @@ public class SoundManager : MonoBehaviour
     {
         for (int i = 0; i < 5; ++i)
         {
-            PlaySFXSound("sfx_die", false);
+            PlaySFXSound("sfx_point", false);
             yield return new WaitForSeconds(1.5f);
         }
     }
@@ -72,38 +73,51 @@ public class SoundManager : MonoBehaviour
     private IEnumerator Co_PlaySFXSound(string srcName, bool isLoop)
     {
         string name = "SFX Sound Player" + srcName;
-        GameObject obj = new (name);
-
-        float coolDown = 0f;
+        float coolDown;
+        GameObject obj = null;
+        AudioClip audioClip = GetSFXAudioClip(srcName);
 
         if (usedAudio.ContainsKey(name))
         {
-            obj = usedAudio[name];
-            obj.SetActive(true);
+            var audio = usedAudio[name];
+            audio.SetActive(true);
+
+            float elapsedTime = 0f;
+            coolDown = audioClip.length;
+            while (elapsedTime <= coolDown)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            audio.SetActive(false);
         }
         else
         {
+            obj = new GameObject(name);
             obj.AddComponent<AudioSource>();
 
             AudioSource audioSource = obj.GetComponent<AudioSource>();
-            audioSource.clip = GetSFXAudioClip(srcName);
+            audioSource.clip = audioClip;
             audioSource.loop = isLoop;
             audioSource.spatialBlend = 1f;
 
-            coolDown = audioSource.clip.length - .1f;
-
             usedAudio.Add(name, obj);
             audioSource.Play();
-        }
 
-        float elapsedTime = 0f;
-        while (elapsedTime <= coolDown)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            if (obj != null)
+            {
+                float elapsedTime = 0f;
+                coolDown = audioClip.length;
+                while (elapsedTime <= coolDown)
+                {
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
 
-        obj.SetActive(false);
+                audioSource.Stop();
+                obj.SetActive(false);
+            }
+        }
     }
 
     public void PlayBGMSound(string srcName, bool isLoop = true)
