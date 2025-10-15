@@ -8,7 +8,17 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: bird1_1
   serializedVersion: 5
+<<<<<<< HEAD
   m_AnimatorParameters: []
+=======
+  m_AnimatorParameters:
+  - m_Name: PMove
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+>>>>>>> 31a78b461631699dbaddb2ff6296f8353a7b25db
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -60,6 +70,12 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1426107676395811109}
     m_Position: {x: 30, y: 60, z: 0}
+<<<<<<< HEAD
+=======
+  - serializedVersion: 1
+    m_State: {fileID: 3889448390806123015}
+    m_Position: {x: 320, y: 60, z: 0}
+>>>>>>> 31a78b461631699dbaddb2ff6296f8353a7b25db
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
