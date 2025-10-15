@@ -34,21 +34,6 @@ public class SoundManager : MonoBehaviour
             bgmAudioClipsDic.Add(clip.name, clip);
         }
     }
- 
-    private void Start()
-    {
-        StartCoroutine(PlayAudios());
-        //PlayBGMSound("sfx_swooshing");
-    }
-
-    IEnumerator PlayAudios()
-    {
-        for (int i = 0; i < 3; ++i)
-        {
-            PlaySFXSound("sfx_die", false);
-            yield return new WaitForSeconds(1.1f);
-        }
-    }
 
     AudioClip GetSFXAudioClip(string srcName)
     {

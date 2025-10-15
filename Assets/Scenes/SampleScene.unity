@@ -244,9 +244,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b4cee78b3d9e140a190277e8017b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instantiatedAudioSources: []
   preloadSFXs:
+  - {fileID: 8300000, guid: 56f7929676d85f94fb11bf93738c1ff5, type: 3}
+  - {fileID: 8300000, guid: 245bdc56771ee434c99573eb065880bb, type: 3}
   - {fileID: 8300000, guid: 50e43ac3647acb340a4f40f2320ff9f1, type: 3}
-  preloadBGMs: []
+  - {fileID: 8300000, guid: 48d98347d9bcd6e4193732bc5bf4fa2f, type: 3}
+  - {fileID: 8300000, guid: 7e9b744ac98740f44841519c62331902, type: 3}
+  preloadBGMs:
+  - {fileID: 8300000, guid: 48d98347d9bcd6e4193732bc5bf4fa2f, type: 3}
 --- !u!4 &1068678470
 Transform:
   m_ObjectHideFlags: 0
