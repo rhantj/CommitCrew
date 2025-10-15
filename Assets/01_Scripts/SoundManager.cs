@@ -8,8 +8,7 @@ public class SoundManager : MonoBehaviour
 
     Dictionary<string, AudioClip> sfxAudioClipsDic = new();
     Dictionary<string, AudioClip> bgmAudioClipsDic = new();
-
-    public List<GameObject> instantiatedAudioSources = new();
+    Dictionary<string, GameObject> usedAudio = new();
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip[] preloadSFXs;
@@ -32,6 +31,20 @@ public class SoundManager : MonoBehaviour
         foreach(AudioClip clip in preloadBGMs)
         {
             bgmAudioClipsDic.Add(clip.name, clip);
+        }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(PlayAudios());
+    }
+
+    IEnumerator PlayAudios()
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            PlaySFXSound("sfx_die", false);
+            yield return new WaitForSeconds(1.5f);
         }
     }
 
@@ -61,9 +74,11 @@ public class SoundManager : MonoBehaviour
         string name = "SFX Sound Player" + srcName;
         GameObject obj = new (name);
 
-        if (instantiatedAudioSources.Contains(obj))
+        float coolDown = 0f;
+
+        if (usedAudio.ContainsKey(name))
         {
-            obj = instantiatedAudioSources[instantiatedAudioSources.IndexOf(obj)];
+            obj = usedAudio[name];
             obj.SetActive(true);
         }
         else
@@ -75,18 +90,20 @@ public class SoundManager : MonoBehaviour
             audioSource.loop = isLoop;
             audioSource.spatialBlend = 1f;
 
-            instantiatedAudioSources.Add(obj);
+            coolDown = audioSource.clip.length - .1f;
+
+            usedAudio.Add(name, obj);
             audioSource.Play();
+        }
 
-            float elapsedTime = 0f;
-            while (elapsedTime <= audioSource.clip.length - .1f)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
+        float elapsedTime = 0f;
+        while (elapsedTime <= coolDown)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
-            obj.SetActive(false);
-        }  
+        obj.SetActive(false);
     }
 
     public void PlayBGMSound(string srcName, bool isLoop = true)
