@@ -38,6 +38,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(PlayAudios());
+        PlayBGMSound("sfx_swooshing");
     }
 
     IEnumerator PlayAudios()
