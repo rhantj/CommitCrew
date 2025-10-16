@@ -21,7 +21,16 @@ public class PlayerController : MonoBehaviour
             playerAnim.enabled = true;
             transform.rotation = Quaternion.Euler(0, 0, 30);
         }
-        transform.Rotate(0, 0, -0.3f);
+        
+        // Z축 회전값을 -20도로 제한
+        float currentZRotation = transform.eulerAngles.z;
+        if (currentZRotation > 180) currentZRotation -= 360; // 각도를 -180~180 범위로 변환
+        
+        if (currentZRotation > -60)
+        {
+            transform.Rotate(0, 0, -0.3f);
+        }
+        
         if (!isStart) return;
     }
 
