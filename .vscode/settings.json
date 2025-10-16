@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "_CommitCrew.sln"
+    "dotnet.defaultSolution": "Team1.sln"
 }
