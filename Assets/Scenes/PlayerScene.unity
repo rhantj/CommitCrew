@@ -171,6 +171,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2097100624977653781, guid: 81c53bc06988bb947a1681c8379d0530, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1694645996}
+    - target: {fileID: 2097100624977653781, guid: 81c53bc06988bb947a1681c8379d0530, type: 3}
+      propertyPath: maxZRotation
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5959212467503286126, guid: 81c53bc06988bb947a1681c8379d0530, type: 3}
       propertyPath: m_Name
       value: Player
@@ -347,6 +355,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1694645996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 768854889300650055, guid: 81c53bc06988bb947a1681c8379d0530, type: 3}
+  m_PrefabInstance: {fileID: 99260559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
