@@ -74,9 +74,16 @@ public class SoundManager : MonoBehaviour
     private IEnumerator Co_PlaySFXSound(string srcName, bool isLoop)
     {
         string name = "SFX Sound Player" + srcName;
+
+        AudioClip audioClip = GetSFXAudioClip(srcName);
+        if(audioClip == null)
+        {
+            Debug.LogError(srcName + " is not found");
+            yield break;
+        }
+
         float coolDown;
         GameObject obj = null;
-        AudioClip audioClip = GetSFXAudioClip(srcName);
 
         if (usedAudio.ContainsKey(name))
         {
