@@ -35,21 +35,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        StartCoroutine(PlayAudios());
-        PlayBGMSound("sfx_swooshing");
-    }
-
-    IEnumerator PlayAudios()
-    {
-        for (int i = 0; i < 5; ++i)
-        {
-            PlaySFXSound("sfx_point", false);
-            yield return new WaitForSeconds(1.5f);
-        }
-    }
-
     AudioClip GetSFXAudioClip(string srcName)
     {
         AudioClip src = sfxAudioClipsDic[srcName];
@@ -130,13 +115,42 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGMSound(string srcName, bool isLoop = true)
     {
-        GameObject obj = new ("BGM Sound Player" + srcName);
-        obj.AddComponent<AudioSource>();
+        string name = "BGM Sound Player" + srcName;
 
-        AudioSource audioSource = obj.GetComponent<AudioSource>();
-        audioSource.clip = GetBGMAudioClip(srcName);
-        audioSource.loop = isLoop;
+        AudioClip audioClip = GetBGMAudioClip(srcName);
+        if (audioClip == null)
+        {
+            Debug.LogError(srcName + " is not found");
+            return;
+        }
 
-        audioSource.Play();
+        GameObject obj = null;
+
+        if (usedAudio.ContainsKey(name))
+        {
+            var audio = usedAudio[name];
+            audio.SetActive(true);
+
+            audio.GetComponent<AudioSource>().Stop();
+            audio.GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            obj = new GameObject(name);
+            obj.AddComponent<AudioSource>();
+
+            AudioSource audioSource = obj.GetComponent<AudioSource>();
+            audioSource.clip = audioClip;
+            audioSource.loop = isLoop;
+            audioSource.volume = 0.5f;
+
+            usedAudio.Add(name, obj);
+            audioSource.Play();
+        }
+    }
+
+    public void StopBGMSound()
+    {
+        usedAudio["BGM Sound Player" + "sfx_swooshing"].GetComponent<AudioSource>().Stop();
     }
 }
