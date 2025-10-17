@@ -12,8 +12,15 @@ public class MapController : MonoBehaviour
         if (backgrounds.Length > 0)
         {
             var sr = backgrounds[0].GetComponent<SpriteRenderer>();
-            if (sr != null) backgroundWidth = sr.bounds.size.x;
-            else Debug.LogError("MapController: SpriteRenderer가 없습니다.");
+            if (sr != null)
+            {
+                // 배경 너비를 정확히 계산
+                backgroundWidth = sr.bounds.size.x * backgrounds[0].localScale.x;
+            }
+            else
+            {
+                Debug.LogError("Error : MapControll SrptieRender Missing");
+            }
         }
     }
 
@@ -33,9 +40,13 @@ public class MapController : MonoBehaviour
             {
                 float maxX = float.NegativeInfinity;
                 foreach (Transform other in backgrounds)
-                    if (other.position.x > maxX) maxX = other.position.x;
+                {
+                    if (other.position.x > maxX)
+                        maxX = other.position.x;
+                }
 
-                bg.position = new Vector3(maxX + backgroundWidth, bg.position.y, bg.position.z);
+                // 위치를 정수로 고정하여 부동소수점 오차 방지
+                bg.position = new Vector3(Mathf.Round(maxX + backgroundWidth), bg.position.y, bg.position.z);
             }
         }
     }
