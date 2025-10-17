@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,79 +6,113 @@ public class PillarSpawner : MonoBehaviour
     [Header("Spawning Settings")]
     [SerializeField] private ObjectPool pillarPool;
     [SerializeField] private float spawnInterval = 2f;
-    [SerializeField] private float spawnXPosition;
-    [SerializeField] private float despawnXPosition;
+    [SerializeField] private float spawnXPosition = 6f;
+    [SerializeField] private float despawnXPosition = -7f;
+    [SerializeField] private bool autoStart = false;
 
     [Header("Pillar Settings")]
-    [SerializeField] private float minColliderSize = 2f; // BoxCollider2D 최소 크기
-    [SerializeField] private float maxColliderSize = 3.5f; // BoxCollider2D 최대 크기
-    [SerializeField] private float minOffset = -2.5f; // BoxCollider2D 최소 오프셋
-    [SerializeField] private float maxOffset = 2.5f; // BoxCollider2D 최대 오프셋
-    [SerializeField] private float scrollSpeed = 2f; // 기둥 이동 속도
+    [SerializeField] private float minColliderSize = 2f;
+    [SerializeField] private float maxColliderSize = 3.5f;
+    [SerializeField] private float minOffset = -2.5f;
+    [SerializeField] private float maxOffset = 2.5f;
+    [SerializeField] private float scrollSpeed = 2f;
 
-    private List<GameObject> activePillars = new List<GameObject>();
+    private readonly List<GameObject> activePillars = new();
     private float spawnTimer;
+    private bool running = false;
 
     void Start()
     {
-        SpawnPillarPair();
         spawnTimer = spawnInterval;
+        if (autoStart) Begin();   // 협업에선 보통 false 유지
     }
 
     void Update()
     {
+        if (!running) return;
         HandleSpawning();
         MovePillars();
         CheckDespawn();
     }
 
-    // 스폰 타이머 관리 및 기둥 쌍 스폰
+    // ===== GameManager에서 호출 =====
+    public void Begin()
+    {
+        running = true;
+        spawnTimer = spawnInterval;
+        // 필요하면 시작 직후 1쌍 미리 생성:
+        // SpawnPillarPair();
+    }
+
+    public void Stop() => running = false;
+
+    public void Clear()
+    {
+        for (int i = activePillars.Count - 1; i >= 0; i--)
+        {
+            var go = activePillars[i];
+            if (go) pillarPool.ReturnObject(go);
+        }
+        activePillars.Clear();
+        spawnTimer = spawnInterval;
+    }
+
+    public void SetScrollSpeed(float s) => scrollSpeed = Mathf.Max(0f, s);
+    public void SetSpawnInterval(float sec) { spawnInterval = Mathf.Max(0.05f, sec); spawnTimer = spawnInterval; }
+
+    // ===== 내부 동작 =====
     void HandleSpawning()
     {
         spawnTimer -= Time.deltaTime;
-        if (spawnTimer <= 0)
+        if (spawnTimer <= 0f)
         {
             SpawnPillarPair();
             spawnTimer = spawnInterval;
         }
     }
 
-
-    // 스폰 위치에 기둥 쌍 생성
     void SpawnPillarPair()
     {
-        GameObject pillarPair = pillarPool.GetObject();
-        pillarPair.transform.position = new Vector3(spawnXPosition, 0, 0);
+        if (!pillarPool) { Debug.LogWarning("PillarSpawner: pillarPool이 비어있습니다."); return; }
 
-        Pillar pairScript = pillarPair.GetComponent<Pillar>();
-        if (pairScript != null)
-        {
-            pairScript.SetupPillars(minColliderSize, maxColliderSize, minOffset, maxOffset);
-        }
+        var pillarPair = pillarPool.GetObject();
+        if (!pillarPair) return;
 
-        activePillars.Add(pillarPair);
+        pillarPair.transform.position = new Vector3(spawnXPosition, 0f, 0f);
+
+        var pair = pillarPair.GetComponent<Pillar>();
+        if (pair != null)
+            pair.SetupPillars(minColliderSize, maxColliderSize, minOffset, maxOffset);
+
+        if (!activePillars.Contains(pillarPair))
+            activePillars.Add(pillarPair);
     }
 
-    // 모든 활성화된 기둥을 왼쪽으로 이동
     void MovePillars()
     {
-        foreach (GameObject pillar in activePillars)
+        float move = scrollSpeed * Time.deltaTime;
+        for (int i = activePillars.Count - 1; i >= 0; i--)
         {
-            if (pillar.activeInHierarchy)
+            var go = activePillars[i];
+            if (go == null || !go.activeInHierarchy)
             {
-                pillar.transform.position += Vector3.left * scrollSpeed * Time.deltaTime;
+                activePillars.RemoveAt(i);
+                continue;
             }
+            go.transform.position += Vector3.left * move;
         }
     }
 
-    // 화면 밖으로 나간 기둥을 비활성화하고 풀에 반환
     void CheckDespawn()
     {
         for (int i = activePillars.Count - 1; i >= 0; i--)
         {
-            if (activePillars[i].transform.position.x < despawnXPosition)
+            var go = activePillars[i];
+            if (!go) { activePillars.RemoveAt(i); continue; }
+
+            if (go.transform.position.x < despawnXPosition)
             {
-                pillarPool.ReturnObject(activePillars[i]);
+                pillarPool.ReturnObject(go);
                 activePillars.RemoveAt(i);
             }
         }

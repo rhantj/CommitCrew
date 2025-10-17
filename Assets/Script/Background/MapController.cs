@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MapController : MonoBehaviour
@@ -7,26 +5,21 @@ public class MapController : MonoBehaviour
     [SerializeField] private float scrollSpeed = 2f;
     [SerializeField] private Transform[] backgrounds;
     private float backgroundWidth;
+    private bool running = false;
 
     void Start()
     {
-        // 배경 너비 및 높이 자동 계산
         if (backgrounds.Length > 0)
         {
-            SpriteRenderer spriteRenderer = backgrounds[0].GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                backgroundWidth = spriteRenderer.bounds.size.x * backgrounds[0].localScale.x; // 스케일 반영
-            }
-            else
-            {
-                Debug.LogError("백그라운드가 없음");
-            }
+            var sr = backgrounds[0].GetComponent<SpriteRenderer>();
+            if (sr != null) backgroundWidth = sr.bounds.size.x;
+            else Debug.LogError("MapController: SpriteRenderer가 없습니다.");
         }
     }
 
     void Update()
     {
+        if (!running) return;
         ScrollBackgrounds();
     }
 
@@ -34,20 +27,20 @@ public class MapController : MonoBehaviour
     {
         foreach (Transform bg in backgrounds)
         {
-            // 왼쪽으로 이동
             bg.position += Vector3.left * scrollSpeed * Time.deltaTime;
 
-            // 화면 밖으로 나가면 맨 뒤로 재배치
             if (bg.position.x <= -backgroundWidth)
             {
-                float maxX = -Mathf.Infinity;
-                foreach (Transform otherBg in backgrounds)
-                {
-                    if (otherBg.position.x > maxX)
-                        maxX = otherBg.position.x;
-                }
-                bg.position = new Vector3(Mathf.Round(maxX + backgroundWidth), bg.position.y, bg.position.z);
+                float maxX = float.NegativeInfinity;
+                foreach (Transform other in backgrounds)
+                    if (other.position.x > maxX) maxX = other.position.x;
+
+                bg.position = new Vector3(maxX + backgroundWidth, bg.position.y, bg.position.z);
             }
         }
     }
+
+    // GameManager에서 호출
+    public void Begin() => running = true;
+    public void Stop() => running = false;
 }

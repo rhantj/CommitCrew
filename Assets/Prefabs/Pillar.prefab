@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6204428119635897693}
   m_Layer: 0
   m_Name: TopPillar
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,11 +139,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8352914111104864034}
-  - component: {fileID: 4720762247614875475}
   - component: {fileID: 717658065504425462}
+  - component: {fileID: 4720762247614875475}
+  - component: {fileID: 5859886901073070380}
   m_Layer: 0
   m_Name: Pillar
-  m_TagString: Untagged
+  m_TagString: Score
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,21 +166,6 @@ Transform:
   - {fileID: 6310854284008082018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4720762247614875475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3996158618578003748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e31acce5272e345ac0ff604223b836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topPillar: {fileID: 5285894510719468469}
-  bottomPillar: {fileID: 6310854284008082018}
-  scoreCollider: {fileID: 717658065504425462}
 --- !u!61 &717658065504425462
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +211,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.40645993, y: 3.616972}
   m_EdgeRadius: 0
+--- !u!114 &4720762247614875475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3996158618578003748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e31acce5272e345ac0ff604223b836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topPillar: {fileID: 5285894510719468469}
+  bottomPillar: {fileID: 6310854284008082018}
+  scoreCollider: {fileID: 717658065504425462}
+--- !u!114 &5859886901073070380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3996158618578003748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aaa32d656d69794297ac3578ac68417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
 --- !u!1 &5066901752364155433
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +252,7 @@ GameObject:
   - component: {fileID: 6543429833249906978}
   m_Layer: 0
   m_Name: DownPillar
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
