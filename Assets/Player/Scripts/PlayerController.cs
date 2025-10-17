@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     private Vector3 startPos; // Awake 시점의 초기 위치(스폰포인트 없을 때 fallback)
 
+    SoundManager soundManager;
+
     void Awake()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour
         playerRb.gravityScale = 0f;
         playerRb.velocity = Vector2.zero;
         playerRb.simulated = true; // 물리 시뮬 ON
+    }
+
+    private void Start()
+    {
+        soundManager = SoundManager.Instance;
     }
 
     void Update()
@@ -48,6 +55,8 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
             if (playerAnim) playerAnim.enabled = true;
             transform.rotation = Quaternion.Euler(0, 0, 30);
+
+            soundManager.PlaySFXSound("sfx_wing");
         }
 
         // 하강 시 살짝 회전(최소 -60도까지)
@@ -63,6 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             isDie = true;
             if (playerAnim) playerAnim.enabled = false;
+            soundManager.PlaySFXSound("sfx_die");
             // 바로 게임오버 처리까지 연결 (원하면 주석 해제)
             if (GameManager.Instance) GameManager.Instance.GameOver();
 

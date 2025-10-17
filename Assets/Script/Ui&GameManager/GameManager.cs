@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         player?.ResetForGame();
         map?.Begin();
         spawner?.Begin();
+        SoundManager.Instance.PlayBGMSound("sfx_swooshing");
         SetState(GameState.Playing);
     }
 
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
         if (state != GameState.Playing) return;
         spawner?.Stop();
         map?.Stop();
+        SoundManager.Instance.StopBGMSound();
         SetState(GameState.GameOver);
     }
 
@@ -124,6 +126,9 @@ public class GameManager : MonoBehaviour
     {
         if (state != GameState.Playing) return;
         score = Mathf.Max(0, score + v);
+
+        SoundManager.Instance.PlaySFXSound("sfx_point");
+
         if (score > bestScore)
         {
             bestScore = score;

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 23133781}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +199,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &23133782
 SpriteRenderer:
@@ -642,6 +642,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readySeconds: 1.2
+--- !u!1 &324133495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324133497}
+  - component: {fileID: 324133496}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &324133496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324133495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b4cee78b3d9e140a190277e8017b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preloadSFXs:
+  - {fileID: 8300000, guid: b545c764240880f4293445b582246f24, type: 3}
+  - {fileID: 8300000, guid: b0c2ee83b0360bf429ce01e7f4852cfe, type: 3}
+  - {fileID: 8300000, guid: 8d3357b31d74bc145bfb72e31e83ad11, type: 3}
+  - {fileID: 8300000, guid: ffccba54aa2989c4baecd124a37f5cdf, type: 3}
+  preloadBGMs:
+  - {fileID: 8300000, guid: f3ed7bb9e6956e246a68e5ef2075dd65, type: 3}
+--- !u!4 &324133497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324133495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &327127817
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +927,7 @@ GameObject:
   - component: {fileID: 458522287}
   m_Layer: 0
   m_Name: Ground (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -939,7 +990,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &458522288
 SpriteRenderer:
@@ -1678,7 +1729,7 @@ GameObject:
   - component: {fileID: 918507923}
   m_Layer: 0
   m_Name: Ground (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1741,7 +1792,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &918507924
 SpriteRenderer:
@@ -2502,7 +2553,7 @@ GameObject:
   - component: {fileID: 1293880762}
   m_Layer: 0
   m_Name: Sky (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2516,7 +2567,7 @@ Transform:
   m_GameObject: {fileID: 1293880760}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 5.3215075, z: 0}
+  m_LocalPosition: {x: 6.5, y: 4.8000007, z: 0}
   m_LocalScale: {x: 10, y: 0.88691795, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2565,7 +2616,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1293880763
 SpriteRenderer:
@@ -3168,7 +3219,7 @@ GameObject:
   - component: {fileID: 1887557237}
   m_Layer: 0
   m_Name: Sky
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3182,7 +3233,7 @@ Transform:
   m_GameObject: {fileID: 1887557235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.3215075, z: 0}
+  m_LocalPosition: {x: 0, y: 4.8, z: 0}
   m_LocalScale: {x: 10, y: 0.88691795, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3231,7 +3282,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1887557238
 SpriteRenderer:
@@ -3453,7 +3504,7 @@ GameObject:
   - component: {fileID: 2035353638}
   m_Layer: 0
   m_Name: Sky (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3467,7 +3518,7 @@ Transform:
   m_GameObject: {fileID: 2035353636}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13, y: 5.3215075, z: 0}
+  m_LocalPosition: {x: 13, y: 4.8000007, z: 0}
   m_LocalScale: {x: 10, y: 0.88691795, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3516,7 +3567,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &2035353639
 SpriteRenderer:
@@ -3667,3 +3718,4 @@ SceneRoots:
   - {fileID: 1669763239}
   - {fileID: 127033740}
   - {fileID: 333544424}
+  - {fileID: 324133497}
